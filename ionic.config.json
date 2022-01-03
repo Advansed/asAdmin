@@ -1,0 +1,7 @@
+{
+  "name": "asadmin2",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
