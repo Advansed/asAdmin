@@ -1,0 +1,18 @@
+.m-points {
+    width: 70%;
+    position:   absolute;
+    left:       1em;
+    top:        7em;
+
+}
+
+.m-point {
+    padding-top:  0.5em;
+    padding-bottom: 0.5em;
+    padding-left: 0.5em;
+    background: rgba(42, 2, 219, 0.511);
+    border-top: 1px solid #ededed;
+    border-radius: 5px;
+    margin-bottom: 0.5em;
+    color: white;
+}

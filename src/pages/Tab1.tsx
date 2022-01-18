@@ -1,8 +1,35 @@
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
-import ExploreContainer from '../components/ExploreContainer';
+import { IonButton, IonContent, IonHeader, IonModal, IonPage, IonTitle, IonToolbar } from '@ionic/react';
+
 import './Tab1.css';
+import { useState } from 'react';
+import { AssembleList, ModalForm } from '../components/Assemble';
+import { Store } from './Store';
+import { Login } from '../components/Login';
+
+
+
+
 
 const Tab1: React.FC = () => {
+  const [modal, setModal] = useState(false)
+  const [upd,   setUpd] = useState(0);
+
+  Store.subscribe({num: 21, type: "auth", func: ()=>{
+    setUpd(upd + 1)
+}})
+
+
+  function Main():JSX.Element {
+    let elem = <></>
+    console.log( Store.getState().auth )
+    if( Store.getState().auth )
+      elem = <AssembleList setModal = { setModal } />
+    else 
+      elem  = <Login/>
+    return elem
+  }
+
+  
   return (
     <IonPage>
       <IonHeader>
@@ -11,13 +38,15 @@ const Tab1: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
-        <IonHeader collapse="condense">
-          <IonToolbar>
-            <IonTitle size="large">Tab 1</IonTitle>
-          </IonToolbar>
-        </IonHeader>
-        <ExploreContainer name="Tab 1 page" />
+        <Main />
       </IonContent>
+      <IonModal
+            isOpen = { modal }
+        >
+            <ModalForm
+              setModal = { setModal } 
+            />
+        </IonModal>
     </IonPage>
   );
 };

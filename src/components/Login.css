@@ -1,0 +1,22 @@
+.l-card {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30%;
+    margin-bottom: auto;
+
+    width: 75%;
+    height: 15em;
+}
+
+.l-list {
+    width: 90%;
+    margin-top: 2em;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.l-tool{
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
