@@ -21,12 +21,8 @@ export const i_state = {
         mode: "place",
         params: [{key: "q", value: "62.0275204, 129.7125726"}]
     },  
-    points:                         [
-        {Адрес: "Первый адрес", lat: 62.0275204, lng: 129.7322226, Выбран: false },
-        {Адрес: "Второй адрес", lat: 62.0341504, lng: 129.7285466, Выбран: false},
-        {Адрес: "Третий адрес", lat: 62.0224574, lng: 129.7124426, Выбран: false},
-        {Адрес: "Четверный адрес", lat: 62.0225204, lng: 129.7165726, Выбран: false},
-    ],
+    points:                         [],
+    inway:                          false,
 }
 
 
@@ -141,6 +137,7 @@ const                   rootReducer = combineReducers({
     sort:                   reducers[8],
     mode:                   reducers[9], 
     points:                 reducers[10],  
+    inway:                  reducers[11],
             
 })
 
@@ -208,6 +205,15 @@ export async function          Orders(){
     
 }
 
+export async function          Points(){
+    let res = await getData1C("ЛистНаДоставку", {
+        ГУИД:   Store.getState().login.guid
+    })   
+    console.log(res)
+    Store.dispatch({type: "points", points: res})
+    
+}
+
 
 export function         stopOrders(){
 
@@ -223,6 +229,8 @@ async function          exec(){
 
 Store.subscribe({num: 101, type: "login", func: ()=>{
     Orders();
+
+    Points();
 }})
 
 //exec();

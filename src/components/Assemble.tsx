@@ -4,8 +4,10 @@ import { useEffect, useState } from "react"
 import { useHistory } from "react-router";
 import { getData1C, Orders, Store } from "../pages/Store";
 
+
 export function     AssembleList(props):JSX.Element {
     const [info, setInfo] = useState<any>([])
+    let hist = useHistory()
 
     useEffect(()=>{
         let orders = Store.getState().orders;
@@ -27,6 +29,20 @@ export function     AssembleList(props):JSX.Element {
             { items }
             <Item info = { info[i] }/>
         </>
+    }
+
+    async function Take( info ) {
+        let res = await getData1C("ВзятьНаСборку", {
+              Номер:      info.Номер
+            , Дата:       info.Дата
+            , ГУИД:      Store.getState().login.guid
+        })
+        if(res.Код === 100) {
+            Orders()
+            hist.push("/tab2")    
+        } else {
+            hist.push("/tab1")    
+        }
     }
 
     
@@ -59,7 +75,7 @@ export function     AssembleList(props):JSX.Element {
                         expand="block"
                         color = "success"
                         onClick = {()=>{
-                            
+                            Take( info )   
                         }}
                     >
                         На сборку
@@ -121,6 +137,7 @@ export function     ModalForm(props) {
             hist.push("/tab1")    
         }
     }
+
     let items = <></>
 
     for(let i = 0; i < info?.length;i++){

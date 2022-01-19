@@ -1,6 +1,6 @@
 import { IonCheckbox, IonCol, IonFab, IonFabButton, IonFabList, IonIcon, IonRow, IonText } from "@ionic/react"
 import { useEffect, useState } from "react"
-import { Store } from "../pages/Store"
+import { getData1C, Store } from "../pages/Store"
 import './Maps.css'
 
 const URI = "https://www.google.com/maps/embed/v1/"
@@ -60,7 +60,8 @@ export function Maps():JSX.Element {
     return elem
 }
 
-export function Points():JSX.Element {
+export function Points(props):JSX.Element {
+
     let points = Store.getState().points;
 
     function setParams(){
@@ -123,18 +124,36 @@ export function Points():JSX.Element {
         </>
         return elem
     }
-    let items = <></>
 
+    let items = <></>
+    let isButton = false
     for(let i = 0; i < points.length; i++) {
-        console.log(points[i])
+        if(points[i].Выбран) isButton = true
         items = <>
             { items }   
             <Point info = { points[i] } />
         </>       
     }
     let elem = <>
-       <div className="m-points">
+       <div className={ props.pts ? "m-points" : "hidden" }>
             { items }            
+            <div className = { Store.getState().inway ? "hidden" : "m-button" }
+                onClick = {()=>{
+                    props.setPts( false )
+                    Store.dispatch({type: "inway", inway: true})
+                    let pts  = Store.getState().points;
+                    let points: any = []
+                    pts.forEach(elem => {
+                        if( elem.Выбран ) points = [...points, elem]
+                    });     
+                    
+                    // getData1C("НаДоставку", {
+                    //     Массив: points
+                    // })
+                }}
+            >
+                В маршрут
+            </div>
         </div>
     </>
     return elem;

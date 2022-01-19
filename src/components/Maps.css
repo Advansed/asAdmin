@@ -16,3 +16,15 @@
     margin-bottom: 0.5em;
     color: white;
 }
+
+.m-button {
+    text-align: center;
+    padding-top:  0.5em;
+    padding-bottom: 0.5em;
+    padding-left: 0.5em;
+    background: rgba(33, 110, 3, 0.733);
+    border-top: 1px solid #ededed;
+    border-radius: 5px;
+    margin-bottom: 0.5em;
+    color: white;
+}
